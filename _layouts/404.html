@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  <style type="text/css" media="screen">
+    .container {
+      margin: 10px auto;
+      max-width: 600px;
+      text-align: center;
+    }
+    h1 {
+      margin: 30px 0;
+      font-size: 4em;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var urlPath = decodeURIComponent(window.location.pathname);
+      var filename = urlPath.split('/').pop().replace('.html', '');
+      var pathWithSpaces = filename.replace(/-/g, ' ');
+      const el = document.querySelector('.container .path');
+      el.innerHTML = '"'+pathWithSpaces+'"';
+    });
+  </script>
+
+  {%- include head.html -%}
+
+  <body class="layout layout--default">
+
+    {%- include header.html -%}
+
+    <div class="container">
+      <h1>404</h1>
+      <p><strong>Ope!</strong></p>
+      <p>Sorry, didn't catch that.</p>
+      <p>Did you say <span class="path"></span>?</p>
+    </div>
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+  </body>
+
+</html>
