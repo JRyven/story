@@ -1,5 +1,69 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
 ---
 
 @import "minima";
+
+.wrapper--full-viewport-height {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: calc(100vh - $full-viewport-height);
+
+  article {
+    flex: 1;
+  }
+
+  nav {
+    margin-top: auto;
+  }
+}
+
+.wrapper {
+  > p:last-of-type {
+    margin-bottom: inherit;
+  }
+}
+
+.post-navigation {
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    color: $grey-color-dark;
+
+    :hover{
+      color: $grey-color-light;
+    }
+  }
+
+  .nav-link {
+    flex: 1;
+
+    &.previous {
+      text-align: right;
+    }
+
+    &.next {
+      text-align: left;
+    }
+  }
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+
+  .post-title,
+  .post-meta {
+    flex: 1;
+  }
+
+  .post-meta{
+    text-align: right;
+    align-self: center;
+  }
+
+  :last-of-type{
+    margin-bottom: 0;
+  }
+}

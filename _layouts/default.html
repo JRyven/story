@@ -8,12 +8,16 @@
     {%- include header.html -%}
 
     <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
+      <div class="wrapper wrapper--full-viewport-height">
+          {{ content }}
       </div>
     </main>
 
     {%- include footer.html -%}
+
+    {% if page.image %}
+      {%- include image-post.html -%}
+    {% endif %}
 
   </body>
 

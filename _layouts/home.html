@@ -1,52 +1,35 @@
-<!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+---
+layout: default
+---
+{% for post in site.posts limit:2 %}
+  {% if forloop.first %}
+    <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-  {%- include head.html -%}
+      <header class="post-header">
+        <h1 class="post-title p-name text-contrast" itemprop="name headline">{{ post.title | escape }}</h1>
+        <p class="post-meta text-contrast">
+          <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
+            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+            {{ post.date | date: date_format }}
+          </time>
+        </p>
+      </header>
 
-  <body class="layout layout--home">
-
-    {%- include header.html -%}
-
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {{ content }}
+      <div class="post-content e-content" itemprop="articleBody">
+        {{ post.content }}
       </div>
 
-      {% for post in site.posts limit:2 %}
-        {% if forloop.first %}
-          <div class="wrapper">
-            <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+    </article>
 
-              <header class="post-header">
-                <h1 class="post-title p-name" itemprop="name headline">{{ post.title | escape }}</h1>
-              </header>
+    {% if post.image %}
+      {%- include image-post.html -%}
+    {% endif %}
 
-              <div class="post-content e-content" itemprop="articleBody">
-                {{ post.content }}
-              </div>
-
-              <p class="post-meta">
-                <time class="dt-published" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">
-                  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-                  {{ post.date | date: date_format }}
-                </time>
-              </p>
-            </article>
-          </div>
-        {% else %}
-          <div class="wrapper">
-            <div>
-              <a class="nav-link previous" href="{{ post.previous.url }}">
-                older {{ post.previous.title }} &rarr;
-              </a>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-    </main>
-
-    {%- include footer.html -%}
-
-  </body>
-
-</html>
+  {% else %}
+    <nav class="post-navigation">
+      <a class="nav-link previous text-contrast" href="{{ post.previous.url }}">
+        older | {{ post.previous.title }} &rarr;
+      </a>
+    </nav>
+  {% endif %}
+{% endfor %}
